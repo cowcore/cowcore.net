@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- <link rel="icon" type="image/png" href="favicon.png" /> -->
+    <link rel="stylesheet" href="css/outer.css">
+    <link rel="stylesheet" href="css/main.css">
+    <title>COWCORE MAINFRAME</title>
+    <script src="js/jquery-3.7.1.min.js" ></script>
+    <script src="js/main.js" type="module"></script>
+
+</head>
+    <body onresize="doResize()">
+        <div id="border"></div>
+    <div id="crt" class="off" onClick="handleClick(event)"> 
+            <div class="terminal-effects">
+        <div class="terminal-wrapper">
+            <div class="terminal">
+                <div class="scanline"></div>
+                <div class="grain"></div>
+                <div class="terminal-content">
+                    <div id="terminal-output"></div>
+                    <div id="terminal-input-wrapper">
+                        <span id="input-prefix">$ / > </span>
+                        <div id="terminal-input" contenteditable="true" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>               
+
+
+                <div id="svg" style="visibility:hidden"> 
+                    <svg id="filterSource" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                        <filter id="warp" filterUnits="objectBoundingBox" x="-20%" y="-20%" width="120%" height="120%">
+                        <feImage id="mapa" result="Map"  preserveAspectRatio="none slice" href="assets/sphere_wide_2.png" />
+                        <feDisplacementMap id="despMap" in="SourceGraphic" in2="map" scale="100" xChannelSelector="R" yChannelSelector="G" />
+                        </filter>
+                        </defs>
+                    </svg>
+                    <svg id="filterSource2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                        <filter id="warp2" filterUnits="objectBoundingBox" x="-20%" y="-20%" width="120%" height="120%">
+                        <feImage id="mapa2" result="Map2"  preserveAspectRatio="none slice" href="assets/distortMap.png" />
+                        <feDisplacementMap id="despMap2" in="SourceGraphic" in2="map2" scale="0" xChannelSelector="R" yChannelSelector="G" />
+                        </filter>
+                        </defs>
+                    </svg>
+                </div>
+    </div>
+    <script>
+        let setOverscan = function(perc){
+            $("#warp").attr("x","-"+perc+"%");
+            $("#warp").attr("y","-"+perc+"%");
+            $("#warp").attr("width",(100+perc*2)+"%");
+            $("#warp").attr("height",(100+perc*2)+"%");
+        }
+        let doResize=function(){
+            let margin = 10;
+            let term = $(".terminal-wrapper");
+            let border = $("#border");
+            let w = $("body").width();
+            let h = $("body").height();
+            let tw =  term.width();
+            let th =  term.height();
+            $("#border").css({
+                width:tw+margin*2,
+                height:th+margin*2,
+                left:(w-tw-margin)/2,
+                top:(h-th-margin)/2,
+            })
+            let ratio = ((th/th)*2)*100;
+            $("#filterSource").attr("viewBox","0 0 "+tw+" "+th);
+            $("#filterSource2").attr("viewBox","0 0 "+tw+" "+th);
+            let fx = $(".terminal-effects");
+            let fxMargin=-35;
+            //$(".xterm-screen").height($("#terminal").height())
+        }
+        let distort = function(intensity,speed,rtn=true){
+            $({foo:0}).animate({foo:100}, {
+                step: function(val) {
+                    if(rtn){
+                        if(val<50) x = val;
+                        else x = 100-val;
+                    }else{
+                        x=val;
+                    }
+                    $("#despMap2").attr("scale",x*intensity)
+                },
+                duration:speed
+            })
+        }
+        // distort(0.2,500)
+        doResize();
+        setOverscan(10) //17
+    </script>
+</body>
+</html>
