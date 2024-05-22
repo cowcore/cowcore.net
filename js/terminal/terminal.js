@@ -43,8 +43,13 @@ export function processCommand(inputText) {
       case "ls":
       case "cd":
       case "mv":
+      case "ed":
       case "mkdir":
 		return userCommand + "\n" + inputWords[0]+" is for people, not cows"
+      case "vim":
+      case "vi":
+      case "emacs":
+		return userCommand + "\n" + inputWords[0]+" is for nerds, not cows"
       case "whoami":
 		return userCommand + "\n" + "you are a good cow."
       case "cat":
@@ -68,7 +73,7 @@ export function processCommand(inputText) {
 	  case "test":
 		return userCommand + "\n" + test;
 	  default:
-		return userCommand + "\n" + `Unknown command: ${inputText}`;
+		return userCommand + "\n" + ` it must be pretty hard to type with those hooves`;
 	}
 	return response;
 }
