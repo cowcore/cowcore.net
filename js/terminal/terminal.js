@@ -54,6 +54,8 @@ export function processCommand(inputText) {
 		return userCommand + "\n" + "you are a good cow."
       case "cat":
 		return userCommand + "\n" + "not cat, cow."
+      case "man":
+		return userCommand + "\n" + "not man, cow."
 	  case "date":
 		return userCommand + "\n" + new Date().toLocaleString();
 	  case "clear":
