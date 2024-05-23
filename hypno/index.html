@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Hello, world!</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="description" content="" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body onresize="doResize()">
+        <div id="outer" >
+
+            <div id="terminal">
+                <div id="terminalInner">
+                    <h1></h1>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 150 150" version="1.1" id="spiral">
+                    <defs>
+                    <clipPath id="clip">
+                    <circle cx="75" cy="75" r="75"/>
+                    </clipPath>
+                    </defs>
+                    <path id="the-path" stroke-linecap="butt" clip-path="url(#clip)">
+                    <animateTransform attributeType="xml"
+                                      attributeName="transform"
+                                      type="rotate"
+                                      from="0 75 75"
+                                      to="360 75 75"
+                                      dur=".75s"
+                                      repeatCount="indefinite"/>    
+                    <!--
+                        -->
+                    </path>
+                </svg>
+
+
+                <div id="svg" style="visibility:hidden"> 
+                    <svg id="filterSource" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                        <filter id="warp" filterUnits="objectBoundingBox" x="-20%" y="-20%" width="120%" height="120%">
+                        <feImage id="mapa" result="Map"  preserveAspectRatio="none slice" href="img/sphere_wide_2.png" />
+                        <feDisplacementMap id="despMap" in="SourceGraphic" in2="map" scale="100" xChannelSelector="R" yChannelSelector="G" />
+                        </filter>
+                        <filter id="displacement" filterUnits="userSpaceOnUse">
+                        <feImage href="img/sphere_wide_1.png" result="dispMap" />
+                        <feDisplacementMap
+                            in="SourceGraphic"
+                            in2="dispMap"
+                            scale="100"
+                            xChannelSelector="B"
+                            yChannelSelector="R" />
+                        </filter>
+                    </path>
+                        </defs>
+                    </svg>
+                    <svg id="filterSource2" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                        <filter id="warp2" filterUnits="objectBoundingBox" x="-20%" y="-20%" width="140%" height="120%">
+                        <feImage id="mapa2" result="Map2"  preserveAspectRatio="none slice" href="img/distortMap.png" />
+                        <feDisplacementMap id="despMap2" in="SourceGraphic" in2="map2" scale="0" xChannelSelector="R" yChannelSelector="G" />
+                        </filter>
+                        </defs>
+                    </svg>
+                    <svg>
+                    <filter id="chroma">
+                        <feColorMatrix type="matrix" 
+                          result="red_"             
+                          values="4 0 0 0 0
+                                  0 0 0 0 0 
+                                  0 0 0 0 0 
+                                  0 0 0 1 0"/>
+                        <feOffset in="red_" dx="2" dy="0" result="red"/>
+                        <feColorMatrix type="matrix" 
+                          in="SourceGraphic"             
+                          result="blue_"             
+                          values="0 0 0 0 0
+                                  0 3 0 0 0 
+                                  0 0 10 0 0 
+                                  0 0 0 1 0"/>
+                        <feOffset in="blue_" dx="-3" dy="0" result="blue"/>    
+                        <feBlend mode="screen" in="red" in2="blue"/>
+                    
+                      </filter>
+                    </svg>
+                </div>
+
+            </div>
+        </div>
+        <div id="vhs">
+
+        </div>
+        
+        <video autoplay loop muted >
+            <source src="img/VHS DIS.mp4" type="video/mp4">
+        </video>
+       
+
+
+        <div id="border"></div>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script> 
+        <script src="res/jquery-3.7.1.min.js" ></script>
+        <script src="main.js"></script>
+        <script src="script.js"></script>
+    </body>
+
+</html>

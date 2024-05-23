@@ -1,0 +1,167 @@
+body{
+    margin:0;
+}
+#border{
+    width:100vw;
+    height:100vh;
+    position:absolute;
+    left:0px;
+    top:0px;
+    border-image-source: url("img/crt_green_mask.png");
+    border-image-slice: 72 87 84 81;
+    border-image-width: 20px 20px 20px 20px;
+    border-image-outset: 0px 0px 0px 0px;
+    border-image-repeat: stretch stretch;
+    pointer-events: none;
+}
+:root {
+  --glow-1: #fff;
+  --glow-2: pink;
+}
+
+@keyframes glow{
+  from{text-shadow:0px 0px 5px var(--glow-1),0px 0px 5px var(--glow-2);}
+  to{text-shadow:0px 0px 20px var(--glow-1),0px 0px 20px var(--glow-2);}
+}
+.glow{
+  animation-name:glow;
+  animation-iteration-count:infinite;
+  animation-direction:alternate;
+}
+@keyframes blur{
+  from{filter:blur(0.1px)}
+  to{filter:blur(1px)}
+}
+.blur{
+  animation-name: blur;
+    animation-duration: 1s;
+  animation-iteration-count:infinite;
+  animation-direction:alternate;
+}
+
+.blink {
+  animation: blink-animation 1s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
+#outer{
+    position:relative;
+    margin:0;
+    border:0;
+    height:100vh;
+    width:100vw;
+    background-color:black;
+    filter:blur(0.6px);
+    overflow:hidden;
+}
+#terminal{
+    margin:0;
+    border:0;
+    background-image:url("img/bg-test.png");
+    background-color: #00ffdb;
+    background-blend-mode: multiply;
+    background-size:4%;
+    overflow-x:hidden;
+    overflow-y:scroll;
+    height:95%;
+    font-size:50px;
+    filter: url(#warp) url(#warp2) url(#chroma);
+}
+#terminalInner{
+    width:100%;
+    height:100%;
+    margin-top:-50px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align:center;
+    //background-color:red;
+}
+#terminalInner h1{
+  z-index:2;
+}
+#terminal p{
+    margin-left:30px;
+}
+#svg{
+    position:fixed;
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+}
+*::-webkit-scrollbar-track {
+  background: var(--black);
+}
+*::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background-color: rgb(var(--alt));
+  border: 2px solid transparent;
+}
+
+#the-path{
+  stroke:rgb(248, 0, 0);
+  stroke-width: 1.2px;
+  fill:none;
+}
+
+#spiral{
+  max-width: 220%;
+  max-height: 220%;
+  display:block;
+  margin: auto;
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  transform-origin:center;
+  transform:scale(2);
+//  z-index: 10;
+//  display:none;
+}
+
+video{
+  width:100vw;
+  height:100vh;
+  position:absolute;
+  left:0;
+  top:0;
+  object-fit: cover;
+  mix-blend-mode:hue;
+    pointer-events: none;
+
+}
+
+#vhs{
+  width:100vw;
+  height:100vh;
+  position:absolute;
+  left:0;
+  top:0;
+  background-image: url("img/noise.png");
+  background-size: cover;
+  animation-name:static;
+  animation-iteration-count:infinite;
+  animation-direction:alternate;
+    animation-duration: 0.4s;
+    mix-blend-mode: difference;
+  opacity: 0.1;
+    pointer-events: none;
+}
+@keyframes static{
+  0%{
+    background-position-x:200px;
+    background-position-y:-300px;
+  }
+  50%{
+    background-position-x:-300px;
+    background-position-y:500px;
+  }
+  100%{
+    background-position-x:60px;
+    background-position-y:-700px;
+  }
+}
